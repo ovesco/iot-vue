@@ -9,8 +9,6 @@
             </div>
             <span slot="moment" slot-scope="date">{{ new Date(date)|moment("from", "now") }}</span>
             <div slot="actions" slot-scope="x, record" class="d-flex">
-                <a-button size="small" v-if="record.key % 3 === 0 && record.isActive"
-                          type="primary" shape="circle" class="details-btn mr-1" icon="desktop" />
                 <router-link tag="span" :to="{ name: 'node-statistics', params: { nodeKey: record.key } }">
                     <a-button size="small" icon="plus" shape="circle" class="details-btn" />
                 </router-link>
@@ -52,11 +50,6 @@ export default {
                 { title: 'Actions', dataIndex: 'action', scopedSlots: { customRender: 'actions' } },
             ],
         };
-    },
-    watch: {
-        $route() {
-            console.log(this.$router.internalHistory);
-        },
     },
     methods: {
         deleteNode(node) {

@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div class="type-indicator details-btn" :style="{background: background}">
+        <div class="type-indicator details-btn" :style="{background: background}"
+             :class="[{bigger: size === 'big'}, {inactive: !this.active}, type]">
             <icon :type="icon" />
         </div>
     </div>
@@ -13,7 +14,7 @@ export default {
     components: {
         Icon,
     },
-    props: ['type', 'active'],
+    props: ['type', 'active', 'size'],
     computed: {
         icon() {
             return {
@@ -26,29 +27,33 @@ export default {
                 humidity: 'aliwangwang',
             }[this.type];
         },
-        background() {
-            if (!this.active) return '#d7d7d7';
-
-            return {
-                video: '#1e4f9e',
-                light: '#bc8520',
-                temperature: '#ce402d',
-                noise: '#a0236c',
-                geolocation: '#1a7219',
-                airQuality: '#0f949b',
-                humidity: '#4c6ebf',
-            }[this.type];
-        },
     },
 };
 </script>
 
 <style scoped lang="scss">
+    @import "../../assets/scss/variables";
+
     .type-indicator {
         width:1.5rem;
         height:1.5rem;
         color:white;
         border-radius:100px;
         font-size: 0.9rem !important;
+
+        &.video { background: $dark-blue }
+        &.light { background: $orange }
+        &.temperature { background: $red }
+        &.noise { background: $rose }
+        &.geolocation { background: $dark-green }
+        &.airQuality { background: $dark-teal }
+        &.humidity { background: $sky-blue }
+        &.inactive { background: $gray-300 !important; }
+
+        &.bigger {
+            width:2.5rem;
+            height:2.5rem;
+            font-size:1.4rem !important;
+        }
     }
 </style>
