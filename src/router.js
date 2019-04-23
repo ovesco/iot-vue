@@ -23,9 +23,9 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "nodes-list" */ './views/Nodes/NodesList.vue'),
                     children: [
                         {
-                            path: ':nodeId',
+                            path: 'details/:nodeKey',
                             name: 'node-statistics',
-                            component: () => import('./views/Nodes/NodesStats.vue'),
+                            component: () => import(/* webpackChunkName: "nodes-stats" */ './views/Nodes/NodesStats.vue'),
                         },
                     ],
                 },

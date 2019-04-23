@@ -4,7 +4,7 @@
             <!-- top items -->
             <div class="d-flex flex-column">
                 <menu-item title="Home" icon="home" to="home" />
-                <menu-item title="Nodes" icon="global" to="nodes" />
+                <menu-item title="Nodes and network tools" icon="global" to="nodes" />
             </div>
             <!-- bottom items -->
             <div class="d-flex flex-column"></div>

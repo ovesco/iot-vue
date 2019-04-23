@@ -10,6 +10,9 @@
                     <h6 class="m-0">{{ subtitle }}</h6>
                 </div>
             </div>
+            <div class="pl-4">
+                <slot />
+            </div>
         </div>
     </div>
 </template>
@@ -32,6 +35,7 @@ export default {
         background: $sub-menu-bg;
         min-height:100vh;
         width: $sub-menu-width;
+        border-right: 1px solid $gray-300;
 
         .sub-menu-header {
 

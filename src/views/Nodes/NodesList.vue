@@ -8,10 +8,15 @@
                 <a-tag v-for="tag in tags" color="blue" :key="tag">{{ tag }}</a-tag>
             </div>
             <span slot="moment" slot-scope="date">{{ new Date(date)|moment("from", "now") }}</span>
-            <div slot="actions" slot-scope="x, record">
-                <router-link tag="span" :to="{ name: 'node-statistics', params: { nodeId: record.key } }">
-                    <a-button type="primary" size="small">Détails</a-button>
+            <div slot="actions" slot-scope="x, record" class="d-flex">
+                <a-button size="small" v-if="record.key % 3 === 0 && record.isActive"
+                          type="primary" shape="circle" class="details-btn mr-1" icon="desktop" />
+                <router-link tag="span" :to="{ name: 'node-statistics', params: { nodeKey: record.key } }">
+                    <a-button size="small" icon="plus" shape="circle" class="details-btn" />
                 </router-link>
+                <a-confirm title="Are you sure ?" @confirm="deleteNode(record)" okText="Yes" cancelText="No">
+                    <a-button type="danger" size="small" icon="delete" shape="circle" class="details-btn ml-1" />
+                </a-confirm>
             </div>
         </a-table>
         <router-view />
@@ -19,7 +24,8 @@
 </template>
 
 <script>
-import { Table, Tag, Button } from 'ant-design-vue';
+/* eslint-disable vue/no-side-effects-in-computed-properties */
+import { Table, Tag, Button, Popconfirm } from 'ant-design-vue';
 import nodes from '../../assets/utils/nodes.json';
 
 export default {
@@ -27,6 +33,7 @@ export default {
         aTable: Table,
         aButton: Button,
         aTag: Tag,
+        aConfirm: Popconfirm,
     },
     data() {
         return {
@@ -35,7 +42,7 @@ export default {
             columns: [
                 { title: 'Enabled', dataIndex: 'isActive', scopedSlots: { customRender: 'active' } },
                 { title: 'Node ID', dataIndex: 'key', key: 'key' },
-                { title: 'Node name', dataIndex: 'name', },
+                { title: 'Node name', dataIndex: 'name' },
                 { title: 'Created', dataIndex: 'created', scopedSlots: { customRender: 'moment' } },
                 { title: 'Last activity', dataIndex: 'updated', scopedSlots: { customRender: 'moment' } },
                 { title: 'Tags', dataIndex: 'tags', scopedSlots: { customRender: 'tags' } },
@@ -43,13 +50,27 @@ export default {
             ],
         };
     },
+    watch: {
+        $route() {
+            console.log(this.$router.internalHistory);
+        },
+    },
+    methods: {
+        deleteNode(node) {
+            console.log(node);
+        },
+        onSelectChange(selected) {
+            this.selectedRowKeys = selected;
+        },
+    },
     computed: {
         rowSelection() {
             const { selectedRowKeys } = this;
             return {
                 selectedRowKeys,
-                onChange: (selected) => this.selectedRowKeys = selected,
+                onChange: this.onSelectChange,
                 hideDefaultSelections: true,
+                onSelection: this.onSelection,
                 selections: [
                     {
                         key: 'all-data',
@@ -73,7 +94,6 @@ export default {
                         },
                     },
                 ],
-                onSelection: this.onSelection,
             };
         },
     },
@@ -90,7 +110,14 @@ export default {
         background:#eee;
 
         &.is-active {
-            background: $success;
+            background: #1890ff;
         }
+    }
+
+    .details-btn {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        font-size:0.7rem;
     }
 </style>
