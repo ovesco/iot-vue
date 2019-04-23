@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a-table :columns="columns" :dataSource="data">
+        <a-table :rowSelection="rowSelection" :columns="columns" :dataSource="data">
             <div slot="active" slot-scope="active">
                 <div class="active-indicator" :class="{'is-active': active}"></div>
             </div>
@@ -31,16 +31,51 @@ export default {
     data() {
         return {
             data: nodes,
+            selectedRowKeys: [],
             columns: [
-                { title: 'Enabled', dataIndex: 'isActive', key: 'isActive', scopedSlots: { customRender: 'active' } },
+                { title: 'Enabled', dataIndex: 'isActive', scopedSlots: { customRender: 'active' } },
                 { title: 'Node ID', dataIndex: 'key', key: 'key' },
-                { title: 'Node name', dataIndex: 'name', key: 'name' },
-                { title: 'Created', dataIndex: 'created', key: 'created', scopedSlots: { customRender: 'moment' } },
-                { title: 'Last activity', dataIndex: 'updated', key: 'updated', scopedSlots: { customRender: 'moment' } },
-                { title: 'Tags', dataIndex: 'tags', key: 'tags', scopedSlots: { customRender: 'tags' } },
+                { title: 'Node name', dataIndex: 'name', },
+                { title: 'Created', dataIndex: 'created', scopedSlots: { customRender: 'moment' } },
+                { title: 'Last activity', dataIndex: 'updated', scopedSlots: { customRender: 'moment' } },
+                { title: 'Tags', dataIndex: 'tags', scopedSlots: { customRender: 'tags' } },
                 { title: 'Actions', dataIndex: 'action', scopedSlots: { customRender: 'actions' } },
             ],
         };
+    },
+    computed: {
+        rowSelection() {
+            const { selectedRowKeys } = this;
+            return {
+                selectedRowKeys,
+                onChange: (selected) => this.selectedRowKeys = selected,
+                hideDefaultSelections: true,
+                selections: [
+                    {
+                        key: 'all-data',
+                        text: 'Select All',
+                        onSelect: () => {
+                            this.selectedRowKeys = [...nodes.keys()];
+                        },
+                    },
+                    {
+                        key: 'enabled',
+                        text: 'Select enabled nodes',
+                        onSelect: () => {
+                            this.selectedRowKeys = [...nodes.keys()].filter(i => nodes[i].isActive);
+                        },
+                    },
+                    {
+                        key: 'disabled',
+                        text: 'Select disabled nodes',
+                        onSelect: () => {
+                            this.selectedRowKeys = [...nodes.keys()].filter(i => !nodes[i].isActive);
+                        },
+                    },
+                ],
+                onSelection: this.onSelection,
+            };
+        },
     },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <drawer title="Node stats" placement="right" :closable="false" :visible="visible" @close="closed">
+        <drawer title="Node stats" placement="right" :destroyOnClose="true" :closable="false" :visible="visible" @close="closed">
             TROP SWAG
             {{ nodeId }}
         </drawer>
@@ -34,6 +34,9 @@ export default {
     methods: {
         closed() {
             this.visible = false;
+            setTimeout(() => {
+                this.$router.push({ name: 'nodes' });
+            }, 10);
         },
     },
 };
