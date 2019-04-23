@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex">
         <sub-menu icon="global" title="Nodes" subtitle="Manage LoRA nodes" color="#247ba0" />
-        <div>
+        <div class="flex-grow-1">
             <router-view />
         </div>
     </div>
