@@ -15,7 +15,7 @@
   },
   {
     "key": 1,
-    "isActive": false,
+    "isActive": true,
     "name": "mollit",
     "description": "dolor aute labore consequat",
     "created": "2017-03-25 08:56:11",
@@ -27,7 +27,7 @@
   },
   {
     "key": 2,
-    "isActive": false,
+    "isActive": true,
     "name": "sit",
     "description": "nostrud magna sint ipsum",
     "created": "2017-08-31 07:56:52",
@@ -39,7 +39,7 @@
   },
   {
     "key": 3,
-    "isActive": false,
+    "isActive": true,
     "name": "minim",
     "description": "incididunt id adipisicing nostrud",
     "created": "2018-08-09 11:52:46",
@@ -102,7 +102,7 @@
   },
   {
     "key": 8,
-    "isActive": false,
+    "isActive": true,
     "name": "sint",
     "description": "dolor ea ut excepteur",
     "created": "2017-07-13 09:27:31",

@@ -1,7 +1,6 @@
 <template>
     <div>
         <a-table :columns="columns" :dataSource="data">
-            <p slot="expandedRowRender" slot-scope="record" style="margin: 0">{{record.description}}</p>
             <div slot="active" slot-scope="active">
                 <div class="active-indicator" :class="{'is-active': active}"></div>
             </div>
@@ -9,17 +8,24 @@
                 <a-tag v-for="tag in tags" color="blue" :key="tag">{{ tag }}</a-tag>
             </div>
             <span slot="moment" slot-scope="date">{{ new Date(date)|moment("from", "now") }}</span>
+            <div slot="actions" slot-scope="x, record">
+                <router-link tag="span" :to="{ name: 'node-statistics', params: { nodeId: record.key } }">
+                    <a-button type="primary" size="small">Détails</a-button>
+                </router-link>
+            </div>
         </a-table>
+        <router-view />
     </div>
 </template>
 
 <script>
-import { Table, Tag } from 'ant-design-vue';
+import { Table, Tag, Button } from 'ant-design-vue';
 import nodes from '../../assets/utils/nodes.json';
 
 export default {
     components: {
         aTable: Table,
+        aButton: Button,
         aTag: Tag,
     },
     data() {
@@ -32,6 +38,7 @@ export default {
                 { title: 'Created', dataIndex: 'created', key: 'created', scopedSlots: { customRender: 'moment' } },
                 { title: 'Last activity', dataIndex: 'updated', key: 'updated', scopedSlots: { customRender: 'moment' } },
                 { title: 'Tags', dataIndex: 'tags', key: 'tags', scopedSlots: { customRender: 'tags' } },
+                { title: 'Actions', dataIndex: 'action', scopedSlots: { customRender: 'actions' } },
             ],
         };
     },
@@ -48,7 +55,7 @@ export default {
         background:#eee;
 
         &.is-active {
-            background: $primary;
+            background: $success;
         }
     }
 </style>

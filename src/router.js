@@ -21,6 +21,13 @@ export default new Router({
                     path: '',
                     name: 'nodes',
                     component: () => import(/* webpackChunkName: "nodes-list" */ './views/Nodes/NodesList.vue'),
+                    children: [
+                        {
+                            path: ':nodeId',
+                            name: 'node-statistics',
+                            component: () => import('./views/Nodes/NodesStats.vue'),
+                        },
+                    ],
                 },
             ],
         },
