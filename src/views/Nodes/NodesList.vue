@@ -1,8 +1,8 @@
 <template>
     <div>
         <a-table :rowSelection="rowSelection" :columns="columns" :dataSource="data">
-            <div slot="active" slot-scope="active">
-                <div class="active-indicator" :class="{'is-active': active}"></div>
+            <div slot="active" slot-scope="active, record">
+                <type-indicator :type="record.type" :active="active" />
             </div>
             <div slot="tags" slot-scope="tags">
                 <a-tag v-for="tag in tags" color="blue" :key="tag">{{ tag }}</a-tag>
@@ -26,6 +26,7 @@
 <script>
 /* eslint-disable vue/no-side-effects-in-computed-properties */
 import { Table, Tag, Button, Popconfirm } from 'ant-design-vue';
+import TypeIndicator from '../../components/Node/TypeIndicator.vue';
 import nodes from '../../assets/utils/nodes.json';
 
 export default {
@@ -34,14 +35,16 @@ export default {
         aButton: Button,
         aTag: Tag,
         aConfirm: Popconfirm,
+        TypeIndicator,
     },
     data() {
         return {
             data: nodes,
             selectedRowKeys: [],
             columns: [
-                { title: 'Enabled', dataIndex: 'isActive', scopedSlots: { customRender: 'active' } },
                 { title: 'Node ID', dataIndex: 'key', key: 'key' },
+                { title: 'Enabled', dataIndex: 'isActive', scopedSlots: { customRender: 'active' } },
+                { title: 'Type', dataIndex: 'type' },
                 { title: 'Node name', dataIndex: 'name' },
                 { title: 'Created', dataIndex: 'created', scopedSlots: { customRender: 'moment' } },
                 { title: 'Last activity', dataIndex: 'updated', scopedSlots: { customRender: 'moment' } },
@@ -99,25 +102,3 @@ export default {
     },
 };
 </script>
-
-<style scoped lang="scss">
-    @import "../../assets/scss/variables";
-
-    .active-indicator {
-        width:0.7rem;
-        height:0.7rem;
-        border-radius:100px;
-        background:#eee;
-
-        &.is-active {
-            background: #1890ff;
-        }
-    }
-
-    .details-btn {
-        display:flex;
-        justify-content: center;
-        align-items: center;
-        font-size:0.7rem;
-    }
-</style>

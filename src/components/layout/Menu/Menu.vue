@@ -3,6 +3,9 @@
         <div class="menu d-flex flex-column justify-content-between">
             <!-- top items -->
             <div class="d-flex flex-column">
+                <div class="menu-logo d-flex justify-content-center pt-2 pb-3">
+                    <img src="../../../assets/images/logo.png" />
+                </div>
                 <menu-item title="Home" icon="home" to="home" />
                 <menu-item title="Nodes and network tools" icon="global" to="nodes" />
             </div>
@@ -31,5 +34,13 @@ export default {
         position:fixed;
         top:0;
         height:100%;
+
+        .menu-logo {
+
+            img {
+
+                width:80%;
+            }
+        }
     }
 </style>
