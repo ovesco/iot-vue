@@ -3,7 +3,7 @@
         <div class="activity-chart">
             <div class="row no-gutters pl-1 align-items-center justify-content-between">
                 <div class="col-12 col-sm-4">
-                    <h4 class="m-0">Temperature variation</h4>
+                    <h4 class="m-0">{{ title }}</h4>
                     <div class="d-flex align-items-center mt-1 mb-2">
                         <icon type="calendar" class="mr-1" />
                         <h6 class="m-0 blue" v-if="data.length > 0">{{ formatDate(data[0].date) }}
@@ -27,6 +27,7 @@ import ActivityViewer from './Viewer.vue';
 import Toolbar from './Toolbar.vue';
 
 export default {
+    props: ['title'],
     components: {
         ActivityViewer,
         Icon,

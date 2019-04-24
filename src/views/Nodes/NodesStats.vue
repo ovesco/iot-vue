@@ -7,7 +7,10 @@
                         <type-indicator :type="node.type" :active="node.active" size="big" class="mr-2" />
                         <h2>{{ node.name }}</h2>
                     </div>
-                    <a-switch v-model="node.active" />
+                    <div class="d-flex align-items-center">
+                        <span class="mr-2">Enabled</span>
+                        <a-switch v-model="node.active" />
+                    </div>
                 </div>
                 <div v-if="node">
                     <component v-if="node.type === 'temperature'" :is="TemperatureNode" :node="node" />

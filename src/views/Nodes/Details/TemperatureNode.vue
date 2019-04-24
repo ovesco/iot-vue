@@ -1,6 +1,6 @@
 <template>
     <div>
-        <node-chart class="pl-4 pr-4" />
+        <node-chart class="pl-4 pr-4" title="Temperature variation" />
     </div>
 </template>
 

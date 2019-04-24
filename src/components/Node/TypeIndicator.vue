@@ -1,7 +1,6 @@
 <template>
     <div>
-        <div class="type-indicator details-btn" :style="{background: background}"
-             :class="[{bigger: size === 'big'}, {inactive: !this.active}, type]">
+        <div class="type-indicator details-btn" :class="[{bigger: size === 'big'}, {inactive: !this.active}, type]">
             <icon :type="icon" />
         </div>
     </div>
@@ -40,6 +39,7 @@ export default {
         color:white;
         border-radius:100px;
         font-size: 0.9rem !important;
+        transition: background .3s;
 
         &.video { background: $dark-blue }
         &.light { background: $orange }
