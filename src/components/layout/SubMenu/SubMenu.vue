@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="pl-4">
-                <slot />
+                <slot :hover="color" />
             </div>
         </div>
     </div>

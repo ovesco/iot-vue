@@ -6,8 +6,8 @@
                 <div class="menu-logo d-flex justify-content-center pt-2 pb-3">
                     <img src="../../../assets/images/logo.png" />
                 </div>
-                <menu-item title="Home" icon="home" to="home" />
-                <menu-item title="Nodes and network tools" icon="global" to="nodes" />
+                <menu-item title="Home" icon="home" :to="{name: 'home'}" />
+                <menu-item title="Nodes and network tools" icon="global" :to="{name: 'nodes'}" />
             </div>
             <!-- bottom items -->
             <div class="d-flex flex-column"></div>
@@ -34,6 +34,7 @@ export default {
         position:fixed;
         top:0;
         height:100%;
+        box-shadow: inset -20px 0 20px rgba(0,0,0,0.05);
 
         .menu-logo {
 

@@ -14,11 +14,16 @@ export default {
     components: {
         Icon,
     },
-    props: ['to', 'title'],
+    mounted() {
+        console.log(this.hover);
+    },
+    props: ['to', 'title', 'hover'],
 };
 </script>
 
 <style scoped lang="scss">
+    @import "../../../assets/scss/variables";
+
     .item-link {
 
         cursor: pointer;
@@ -27,6 +32,10 @@ export default {
             font-size:0.5rem;
             position:relative;
             top:0.5px;
+        }
+
+        &:hover {
+            color: $primary;
         }
     }
 </style>

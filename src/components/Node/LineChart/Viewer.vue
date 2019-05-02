@@ -134,15 +134,15 @@ export default {
             redrawFlag = true;
             xScale.domain(extent(data, i => i.date));
             yScale.domain([0, max(data, i => +i.value) + 10]);
-            line.transition()
-                .duration(200)
-                .attr('d', pathDef(data));
             xAxis.transition()
                 .duration(200)
                 .call(axisBottom(xScale));
             yAxis.transition()
                 .duration(200)
                 .call(axisLeft(yScale));
+            line.transition()
+                .duration(200)
+                .attr('d', pathDef(data));
         });
     },
 };

@@ -39,12 +39,12 @@ export default {
     },
     mounted() {
         this.visible = true;
-        this.nodeKey = this.$route.params.nodeKey;
+        this.updateNode(this.$route.params.nodeKey);
     },
     watch: {
         $route(n) {
-            this.nodeKey = n.params.nodeKey;
             this.visible = true;
+            this.updateNode(n.params.nodeKey);
         },
     },
     data() {
@@ -52,21 +52,18 @@ export default {
             TemperatureNode,
             VideoNode,
             visible: false,
-            nodeKey: null,
-            nodes,
+            node: null,
         };
     },
-    computed: {
-        node() {
-            const items = this.nodes.filter(n => n.key === this.nodeKey);
-            return items.length === 1 ? items[0] : null;
-        },
-    },
     methods: {
+        updateNode(key) {
+            const items = nodes.filter(n => parseInt(n.key, 10) === parseInt(key, 10));
+            this.node = items.length === 1 ? items[0] : null;
+        },
         closed() {
             this.visible = false;
             setTimeout(() => {
-                this.$router.back();
+                this.$router.push({ name: 'nodes' });
             }, 300);
         },
     },
