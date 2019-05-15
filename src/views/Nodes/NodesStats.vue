@@ -13,11 +13,7 @@
                     </div>
                 </div>
                 <div v-if="node">
-                    <component v-if="node.type === 'temperature'" :is="TemperatureNode" :node="node" />
-                    <component v-else-if="node.type === 'video'" :is="VideoNode" :node="node" />
-                    <div v-else>
-                        Ayy mashallah pas encore implémenté ca
-                    </div>
+                    <component :is="typeComponent" />
                 </div>
             </div>
         </drawer>
@@ -27,8 +23,9 @@
 <script>
 import { Drawer, Switch } from 'ant-design-vue';
 import nodes from '../../assets/utils/nodes.json';
-import TemperatureNode from './Details/TemperatureNode.vue';
 import TypeIndicator from '../../components/Node/TypeIndicator.vue';
+
+import TemperatureNode from './Details/TemperatureNode.vue';
 import VideoNode from './Details/VideoNode.vue';
 
 export default {
@@ -65,6 +62,14 @@ export default {
             setTimeout(() => {
                 this.$router.push({ name: 'nodes' });
             }, 300);
+        },
+    },
+    computed: {
+        typeComponent() {
+            return {
+                temperature: TemperatureNode,
+                video: VideoNode,
+            }[this.node.type];
         },
     },
 };

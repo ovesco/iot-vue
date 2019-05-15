@@ -17,7 +17,7 @@
                 </div>
                 <div class="mt-4">
                     <h3 class="m-0">Available videos</h3>
-                    <h5>Stream downloaded and stored on the server</h5>
+                    <h5>Streams downloaded and stored on the server</h5>
                     <a-table :columns="columns" :dataSource="videos" size="small" :pagination="{ defaultPageSize: 5 }">
                         <div slot="actions" class="d-flex">
                             <a-button size="small" type="primary" shape="circle" icon="download" class="details-btn" />
