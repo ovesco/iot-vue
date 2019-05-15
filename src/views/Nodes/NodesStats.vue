@@ -23,10 +23,8 @@
 <script>
 import { Drawer, Switch } from 'ant-design-vue';
 import nodes from '../../assets/utils/nodes.json';
+import { getComponent } from '../../nodes';
 import TypeIndicator from '../../components/Node/TypeIndicator.vue';
-
-import TemperatureNode from './Details/TemperatureNode.vue';
-import VideoNode from './Details/VideoNode.vue';
 
 export default {
     components: {
@@ -46,8 +44,6 @@ export default {
     },
     data() {
         return {
-            TemperatureNode,
-            VideoNode,
             visible: false,
             node: null,
         };
@@ -66,10 +62,7 @@ export default {
     },
     computed: {
         typeComponent() {
-            return {
-                temperature: TemperatureNode,
-                video: VideoNode,
-            }[this.node.type];
+            return getComponent(this.node.type);
         },
     },
 };
