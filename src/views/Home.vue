@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="home d-flex pt-5 align-items-center flex-column">
-            <h1 class="text-white">IOT LORA Manager</h1>
+            <h1 class="text-white">IOT Manager</h1>
             <h4 class="text-white">Manage your Lora network easily and efficiently</h4>
             <canvas ref="canvas" width="900" height="520" ></canvas>
         </div>

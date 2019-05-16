@@ -12,7 +12,7 @@
 
             <!-- streaming and videos -->
             <sub-menu-category title="Videos" class="mt-4" />
-            <sub-menu-item title="Download history" :to="{name: 'download-history'}" />
+            <sub-menu-item title="Download history" :to="{name: 'download history'}" />
         </sub-menu>
         <div class="flex-grow-1">
             <router-view />

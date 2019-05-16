@@ -5,7 +5,7 @@ import Login from './views/Login.vue';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [
@@ -51,8 +51,8 @@ export default new Router({
                                 },
                                 {
                                     path: 'download-history',
-                                    name: 'download-history',
-                                    component: () => import(/* webpackChunkName: "nodes-stats" */ './views/Nodes/VideoDownloads.vue'),
+                                    name: 'download history',
+                                    component: () => import(/* webpackChunkName: "download-history" */ './views/Nodes/VideoDownloads.vue'),
                                 },
                             ],
                         },
@@ -62,3 +62,9 @@ export default new Router({
         },
     ],
 });
+
+router.afterEach((to) => {
+    document.title = `IOT | ${to.name}`;
+});
+
+export default router;
