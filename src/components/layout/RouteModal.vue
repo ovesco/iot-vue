@@ -1,17 +1,17 @@
 <template>
     <div>
-        <drawer :destroyOnClose="true" :closable="false" :visible="visible" @close="closed" :width="width">
+        <modal :title="title" :visible="visible" :confirmLoading="confirmLoading" @cancel="closed" @ok="$emit('ok')">
             <slot />
-        </drawer>
+        </modal>
     </div>
 </template>
 
 <script>
-import { Drawer } from 'ant-design-vue';
+import { Modal } from 'ant-design-vue';
 
 export default {
     components: {
-        Drawer,
+        Modal,
     },
     mounted() {
         this.visible = true;
@@ -20,6 +20,14 @@ export default {
         width: {
             type: Number,
             default: () => 720,
+        },
+        title: {
+            type: String,
+            default: () => null,
+        },
+        confirmLoading: {
+            type: Boolean,
+            default: () => false,
         },
     },
     watch: {

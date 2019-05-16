@@ -34,7 +34,6 @@ export default {
         position:fixed;
         top:0;
         height:100%;
-        box-shadow: inset -20px 0 20px rgba(0,0,0,0.05);
 
         .menu-logo {
 

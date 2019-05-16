@@ -42,12 +42,12 @@ export default new Router({
                                     name: 'new-node',
                                     component: () => import(/* webpackChunkName: "new-node" */ './views/Nodes/NewNode.vue'),
                                 },
+                                {
+                                    path: 'download-history',
+                                    name: 'download-history',
+                                    component: () => import(/* webpackChunkName: "nodes-stats" */ './views/Nodes/VideoDownloads.vue'),
+                                },
                             ],
-                        },
-                        {
-                            path: 'download-history',
-                            name: 'download-history',
-                            component: () => import(/* webpackChunkName: "nodes-stats" */ './views/Nodes/VideoDownloads.vue'),
                         },
                     ],
                 },

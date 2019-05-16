@@ -1,20 +1,21 @@
 <template>
     <div>
-        <a-table :rowSelection="rowSelection" :columns="columns" :dataSource="data">
+        <div class="p-4">
+            <h2 class="m-0">Nodes</h2>
+            <h4 class="m-0">All currently registered nodes</h4>
+        </div>
+        <a-table :rowSelection="rowSelection" class="table-list" :columns="columns" :dataSource="$store.state.nodes">
             <div slot="active" slot-scope="active, record">
                 <type-indicator :type="record.type" :active="active" />
             </div>
-            <div slot="tags" slot-scope="tags">
-                <a-tag v-for="tag in tags" color="blue" :key="tag">{{ tag }}</a-tag>
-            </div>
-            <span slot="moment" slot-scope="date">{{ new Date(date)|moment("from", "now") }}</span>
+            <span slot="moment" slot-scope="date">{{ new Date(date)|moment("from", "now") }} ({{ date }})</span>
             <div slot="actions" slot-scope="x, record" class="d-flex">
                 <router-link tag="span" :to="{ name: 'node-statistics', params: { nodeKey: record.key } }">
                     <a-button size="small" icon="plus" shape="circle" class="details-btn" />
                 </router-link>
-                <a-confirm title="Are you sure ?" @confirm="deleteNode(record)" okText="Yes" cancelText="No">
+                <async-pop-confirm :confirm="() => $store.dispatch('deleteNode', record)">
                     <a-button type="danger" size="small" icon="delete" shape="circle" class="details-btn ml-1" />
-                </a-confirm>
+                </async-pop-confirm>
             </div>
         </a-table>
         <router-view />
@@ -23,21 +24,23 @@
 
 <script>
 /* eslint-disable vue/no-side-effects-in-computed-properties */
-import { Table, Tag, Button, Popconfirm } from 'ant-design-vue';
+import { Table, Button } from 'ant-design-vue';
 import TypeIndicator from '../../components/Node/TypeIndicator.vue';
+import AsyncPopConfirm from '../../components/layout/AsyncPopConfirm.vue';
 import nodes from '../../assets/utils/nodes.json';
 
 export default {
     components: {
         aTable: Table,
         aButton: Button,
-        aTag: Tag,
-        aConfirm: Popconfirm,
         TypeIndicator,
+        AsyncPopConfirm,
+    },
+    mounted() {
+        this.$store.dispatch('loadNodes');
     },
     data() {
         return {
-            data: nodes,
             selectedRowKeys: [],
             columns: [
                 { title: 'Node ID', dataIndex: 'key', key: 'key' },
@@ -46,7 +49,6 @@ export default {
                 { title: 'Node name', dataIndex: 'name' },
                 { title: 'Created', dataIndex: 'created', scopedSlots: { customRender: 'moment' } },
                 { title: 'Last activity', dataIndex: 'updated', scopedSlots: { customRender: 'moment' } },
-                { title: 'Tags', dataIndex: 'tags', scopedSlots: { customRender: 'tags' } },
                 { title: 'Actions', dataIndex: 'action', scopedSlots: { customRender: 'actions' } },
             ],
         };
