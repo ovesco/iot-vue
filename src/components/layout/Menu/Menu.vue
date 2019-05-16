@@ -4,7 +4,9 @@
             <!-- top items -->
             <div class="d-flex flex-column">
                 <div class="menu-logo d-flex justify-content-center pt-2 pb-3">
-                    <img src="../../../assets/images/logo.png" />
+                    <div class="picto">
+                        <img src="../../../assets/images/logo.png" />
+                    </div>
                 </div>
                 <menu-item title="Home" icon="home" :to="{name: 'home'}" />
                 <menu-item title="Nodes and network tools" icon="global" :to="{name: 'nodes'}" />
@@ -37,9 +39,12 @@ export default {
 
         .menu-logo {
 
-            img {
-
+            .picto {
                 width:80%;
+
+                img {
+                    width: 100%;
+                }
             }
         }
     }
