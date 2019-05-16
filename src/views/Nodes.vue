@@ -4,15 +4,15 @@
             <!-- nodes -->
             <sub-menu-category title="Nodes" />
             <sub-menu-item title="Nodes list" :to="{name: 'nodes'}" />
-            <sub-menu-item title="Add new node" :to="{name: 'nodes'}" />
+            <sub-menu-item title="Add new node" :to="{name: 'new-node'}" />
 
             <!-- statistics -->
             <sub-menu-category title="Statistics" class="mt-4" />
-            <sub-menu-item title="Global nodes stats" :to="{name: 'nodes'}" />
+            <sub-menu-item title="Global node statistics" :to="{name: 'nodes'}" />
 
             <!-- streaming and videos -->
-            <sub-menu-category title="Video" class="mt-4" />
-            <sub-menu-item title="Downloaded videos" :to="{name: 'nodes'}" />
+            <sub-menu-category title="Videos" class="mt-4" />
+            <sub-menu-item title="Download history" :to="{name: 'download-history'}" />
         </sub-menu>
         <div class="flex-grow-1">
             <router-view />

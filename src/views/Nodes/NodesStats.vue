@@ -1,6 +1,6 @@
 <template>
     <div>
-        <drawer :destroyOnClose="true" :closable="false" :visible="visible" @close="closed" :width="720">
+        <route-drawer>
             <div v-if="node !== null">
                 <div class="d-flex justify-content-between p-4">
                     <div class="d-flex align-items-center">
@@ -16,7 +16,7 @@
                     <component :is="typeComponent" />
                 </div>
             </div>
-        </drawer>
+        </route-drawer>
     </div>
 </template>
 
@@ -25,26 +25,20 @@ import { Drawer, Switch } from 'ant-design-vue';
 import nodes from '../../assets/utils/nodes.json';
 import { getComponent } from '../../nodes';
 import TypeIndicator from '../../components/Node/TypeIndicator.vue';
+import RouteDrawer from '../../components/layout/RouteDrawer.vue';
 
 export default {
     components: {
+        RouteDrawer,
         aSwitch: Switch,
         TypeIndicator,
         Drawer,
     },
     mounted() {
-        this.visible = true;
         this.updateNode(this.$route.params.nodeKey);
-    },
-    watch: {
-        $route(n) {
-            this.visible = true;
-            this.updateNode(n.params.nodeKey);
-        },
     },
     data() {
         return {
-            visible: false,
             node: null,
         };
     },
@@ -52,12 +46,6 @@ export default {
         updateNode(key) {
             const items = nodes.filter(n => parseInt(n.key, 10) === parseInt(key, 10));
             this.node = items.length === 1 ? items[0] : null;
-        },
-        closed() {
-            this.visible = false;
-            setTimeout(() => {
-                this.$router.push({ name: 'nodes' });
-            }, 300);
         },
     },
     computed: {

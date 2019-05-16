@@ -14,9 +14,6 @@ export default {
     components: {
         Icon,
     },
-    mounted() {
-        console.log(this.hover);
-    },
     props: ['to', 'title', 'hover'],
 };
 </script>
