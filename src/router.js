@@ -36,6 +36,13 @@ export default new Router({
                                     path: 'details/:nodeKey',
                                     name: 'node-statistics',
                                     component: () => import(/* webpackChunkName: "nodes-stats" */ './views/Nodes/NodesStats.vue'),
+                                    children: [
+                                        {
+                                            path: 'update',
+                                            name: 'update-node',
+                                            component: () => import(/* webpackChunkName: "update-node" */ './views/Nodes/UpdateNode.vue'),
+                                        },
+                                    ],
                                 },
                                 {
                                     path: 'new',

@@ -13,7 +13,8 @@
                 <router-link tag="span" :to="{ name: 'node-statistics', params: { nodeKey: record.key } }">
                     <a-button size="small" icon="plus" shape="circle" class="details-btn" />
                 </router-link>
-                <async-pop-confirm :confirm="() => $store.dispatch('deleteNode', record)">
+                <async-pop-confirm :title="'Are you sure you want to delete ' + record.name + ' ?'"
+                                   :confirm="() => $store.dispatch('deleteNode', record)">
                     <a-button type="danger" size="small" icon="delete" shape="circle" class="details-btn ml-1" />
                 </async-pop-confirm>
             </div>

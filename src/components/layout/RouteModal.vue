@@ -44,7 +44,7 @@ export default {
         closed() {
             this.visible = false;
             setTimeout(() => {
-                this.$router.push({ name: 'nodes' });
+                this.$router.go(-1);
             }, 300);
         },
     },

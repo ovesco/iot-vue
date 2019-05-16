@@ -4,6 +4,8 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import NodeSource from './NodeSource';
 
+const find = (key, state) => state.nodes.find(node => parseInt(node.key, 10) === parseInt(key, 10));
+
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -11,7 +13,7 @@ const store = new Vuex.Store({
         nodes: [],
     },
     getters: {
-        getNode: state => key => state.nodes.find(node => parseInt(node.key, 10) === parseInt(key, 10)),
+        getNode: state => key => find(key, state),
     },
     mutations: {
         setNodes: (state, nodes) => {
@@ -19,6 +21,9 @@ const store = new Vuex.Store({
         },
         pushNode: (state, node) => {
             state.nodes.push(node);
+        },
+        modifyNode: (state, { key, node }) => {
+            Object.assign(find(key, state), node);
         },
         removeNode: (state, node) => {
             const index = state.nodes.indexOf(node);
@@ -40,6 +45,14 @@ const store = new Vuex.Store({
                         isActive: true,
                         key: state.nodes.length + 1,
                     });
+                    resolve();
+                }, 1500);
+            });
+        },
+        updateNode: ({ commit }, { key, node }) => {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    commit('modifyNode', { key, node });
                     resolve();
                 }, 1500);
             });
