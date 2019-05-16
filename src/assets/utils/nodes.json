@@ -61,5 +61,14 @@
     "created": "2018-12-06 08:37:38",
     "updated": "2018-09-18 09:09:25",
     "type": "light"
+  },
+  {
+    "key": 7,
+    "isActive": true,
+    "name": "anim",
+    "description": "Exercitation sit consectetur nostrud aliqua ex. Et quis nisi cupidatat veniam adipisicing eu laborum.\r\n",
+    "created": "2018-11-17 11:13:18",
+    "updated": "2019-04-13 11:32:47",
+    "type": "temperature"
   }
 ]

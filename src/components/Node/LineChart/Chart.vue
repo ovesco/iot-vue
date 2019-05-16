@@ -23,11 +23,12 @@
 </template>
 <script>
 import { Icon, Button } from 'ant-design-vue';
+import NodeSource from '../../../NodeSource';
 import ActivityViewer from './Viewer.vue';
 import Toolbar from './Toolbar.vue';
 
 export default {
-    props: ['title'],
+    props: ['title', 'node'],
     components: {
         ActivityViewer,
         Icon,
@@ -54,15 +55,9 @@ export default {
             this.activeInterval = intr;
             this.$emit('pre-redraw');
             this.data.splice(0);
-            const base = Math.floor(Math.random() * 10) - 5;
-            for (let j = 0; j < 3; j += 1) {
-                for (let i = 1; i < 30; i += 3) {
-                    this.data.push({
-                        date: new Date(2018, j + base, i),
-                        value: (Math.floor(Math.random() * 100)),
-                    });
-                }
-            }
+            NodeSource.constructor.getActivity(this.node.key).then((data) => {
+                this.data = data;
+            });
             this.$emit('redraw', this.data);
         },
         formatDate(date) {

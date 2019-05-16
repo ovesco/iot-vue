@@ -1,8 +1,16 @@
 <template>
     <div>
-        <div class="p-4">
-            <h2 class="m-0">Nodes</h2>
-            <h4 class="m-0">All currently registered nodes</h4>
+        <div class="p-4 d-flex align-items-center justify-content-between">
+            <div>
+                <h2 class="m-0">Nodes</h2>
+                <h4 class="m-0">All currently registered nodes</h4>
+            </div>
+            <div>
+                <a-button v-if="selectedAllSame && selectedRowKeys.length > 1" class="d-flex align-items-center p-2">
+                    <type-indicator :type="selectedType" :active="true" class="mr-2" />
+                    Activity graph for {{ selectedRowKeys.length }} nodes
+                </a-button>
+            </div>
         </div>
         <a-table :rowSelection="rowSelection" class="table-list" :columns="columns" :dataSource="$store.state.nodes">
             <div slot="active" slot-scope="active, record">
@@ -55,14 +63,22 @@ export default {
         };
     },
     methods: {
-        deleteNode(node) {
-            console.log(node);
-        },
         onSelectChange(selected) {
             this.selectedRowKeys = selected;
         },
     },
     computed: {
+        selectedAllSame() {
+            if (this.selectedNodes.length === 0) return true;
+            /* eslint-disable no-confusing-arrow */
+            return this.selectedNodes.map(node => node.type).reduce((a, b) => a === b ? a : NaN);
+        },
+        selectedNodes() {
+            return this.selectedRowKeys.map(key => this.$store.getters.getNode(key));
+        },
+        selectedType() {
+            return this.selectedAllSame ? this.$store.getters.getNode(this.selectedRowKeys[0]).type : null;
+        },
         rowSelection() {
             const { selectedRowKeys } = this;
             return {

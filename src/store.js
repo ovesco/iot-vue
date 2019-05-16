@@ -69,5 +69,5 @@ const store = new Vuex.Store({
 });
 
 // Set store listener listener
-NodeSource.register(store);
+// NodeSource.register(store);
 export default store;

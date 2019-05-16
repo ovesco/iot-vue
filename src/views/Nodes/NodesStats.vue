@@ -19,7 +19,7 @@
                     <h5 class="text-muted">{{ node.description }}</h5>
                 </div>
                 <div v-if="node">
-                    <component :is="typeComponent" />
+                    <component :is="typeComponent" :node="node" />
                 </div>
             </div>
         </route-drawer>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <node-chart class="pl-4 pr-4" title="Temperature variation" />
+        <node-chart class="pl-4 pr-4" title="Temperature variation" :node="node" />
     </div>
 </template>
 
@@ -11,5 +11,6 @@ export default {
     components: {
         NodeChart,
     },
+    props: ['node'],
 };
 </script>
