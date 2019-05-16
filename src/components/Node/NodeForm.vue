@@ -6,49 +6,38 @@
         <a-form-item label="Description">
             <a-input v-decorator="['description']" />
         </a-form-item>
-        <a-form-item label="Node type">
-            <a-select v-decorator="['type', {rules: [{required: true}]}]">
-                <a-select-option v-for="type in types" :key="type" :value="type">{{type}}</a-select-option>
-            </a-select>
-        </a-form-item>
+        <slot />
     </a-form>
 </template>
 
 <script>
-import { Form, Input, Select } from 'ant-design-vue';
-import { Types } from '../../nodes';
+import { Form, Input } from 'ant-design-vue';
 
 export default {
     components: {
         aForm: Form,
         aFormItem: Form.Item,
         aInput: Input,
-        aSelect: Select,
-        aSelectOption: Select.Option,
     },
     props: {
         data: {
             type: Object,
-            default: () => ({
-                name: null,
-                description: null,
-                type: null,
-            }),
+            default: () => ({}),
         },
     },
     data() {
         return {
-            types: Types,
             form: this.$form.createForm(this),
         };
     },
     created() {
+        const mapping = {};
+        Object.keys(this.data).forEach((key) => {
+            mapping[key] = this.$form.createFormField({ value: this.data[key] });
+        });
+
         this.form = this.$form.createForm(this, {
-            mapPropsToFields: () => ({
-                name: this.$form.createFormField({ value: this.data.name }),
-                description: this.$form.createFormField({ value: this.data.description }),
-                type: this.$form.createFormField({ value: this.data.type }),
-            }),
+            mapPropsToFields: () => mapping,
         });
     },
     methods: {

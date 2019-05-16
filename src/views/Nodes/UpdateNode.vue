@@ -20,14 +20,10 @@ export default {
             confirm: false,
         };
     },
-    mounted() {
-        console.log(this.$route);
-    },
     methods: {
         handleSubmit() {
             this.confirm = true;
             this.$refs.form.retrieve().then((node) => {
-                console.log(node);
                 this.$store.dispatch('updateNode', { node, key: this.$route.params.nodeKey }).then(() => {
                     this.confirm = false;
                     this.$refs.modal.closed();
