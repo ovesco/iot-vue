@@ -28,11 +28,14 @@
 
 <script>
 /* eslint-disable vue/no-side-effects-in-computed-properties */
+import axios from 'axios';
 import { Table, Button } from 'ant-design-vue';
 import TypeIndicator from '../../components/Node/TypeIndicator.vue';
 import ListToolbar from '../../components/Node/ListToolbar.vue';
 import AsyncPopConfirm from '../../components/layout/AsyncPopConfirm.vue';
 import nodes from '../../assets/utils/nodes.json';
+
+const API_URL = 'http://193.247.203.90:8080/api';
 
 export default {
     components: {
@@ -44,6 +47,7 @@ export default {
     },
     mounted() {
         this.$store.dispatch('loadNodes');
+        this.getNode();
     },
     data() {
         return {
@@ -57,11 +61,21 @@ export default {
                 { title: 'Last activity', dataIndex: 'updated', scopedSlots: { customRender: 'moment' } },
                 { title: 'Actions', dataIndex: 'action', scopedSlots: { customRender: 'actions' } },
             ],
+            node: [],
+            errors: [],
         };
     },
     methods: {
         onSelectChange(selected) {
             this.selectedRowKeys = selected;
+        },
+        getNodes() {
+            axios.get(`${API_URL}/devices`).then((response) => {
+                this.node = response;
+                console.log(this.node);
+            }).catch((e) => {
+                this.errors.push(e);
+            });
         },
     },
     computed: {
