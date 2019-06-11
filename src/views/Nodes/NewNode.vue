@@ -15,13 +15,11 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { Form, Select } from 'ant-design-vue';
 import RouteModal from '../../components/layout/RouteModal.vue';
 import NodeForm from '../../components/Node/NodeForm.vue';
 import { Types } from '../../nodes';
 
-const API_URL = 'http://193.247.203.90:8080/api';
 
 export default {
     components: {
@@ -47,21 +45,6 @@ export default {
                 });
             }).catch(() => {
                 this.confirm = false;
-            });
-        },
-        newNode() {
-            axios({
-                url: `${API_URL}/devices`,
-                method: 'POST',
-                data: {
-                    deviceID: 'test123456', // TODO
-                    deviceEUI: 'test123456', // TODO
-                    description: 'test123456', // TODO
-                },
-            }).then((response) => {
-                console.log(response);
-            }).catch((e) => {
-                console.log(e);
             });
         },
     },

@@ -1,10 +1,10 @@
 <template>
     <a-form :form="form" layout="horizontal">
-        <a-form-item label="Node name">
-            <a-input v-decorator="['name', {rules: [{required: true}]}]" />
+        <a-form-item label="Device id">
+            <a-input v-decorator="['id', {rules: [{required: true}]}]" />
         </a-form-item>
-        <a-form-item label="Description">
-            <a-input v-decorator="['description']" />
+        <a-form-item label="Device EUI">
+            <a-input v-decorator="['name', {rules: [{required: true}]}]" />
         </a-form-item>
         <slot />
     </a-form>

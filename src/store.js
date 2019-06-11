@@ -1,8 +1,9 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable arrow-body-style */
+import axios from 'axios';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import NodeSource from './NodeSource';
+
 
 const find = (key, state) => state.nodes.find(node => parseInt(node.key, 10) === parseInt(key, 10));
 
@@ -32,21 +33,39 @@ const store = new Vuex.Store({
     },
     actions: {
         loadNodes: ({ commit }) => {
-            commit('setNodes', NodeSource.getNodes());
+            return new Promise(() => {
+                axios.get('http://193.247.203.90:8080/api/devices').then((response) => {
+                    commit('setNodes', response.data);
+                }).catch((e) => {
+                    console.log(e);
+                });
+            });
         },
-        addNode: ({ commit, state }, node) => {
+        addNode: ({ commit }, node) => {
             // Build node object, should be made by server
-            return new Promise((resolve) => {
-                setTimeout(() => {
+            console.log(node.id, node.name);
+            return new Promise(() => {
+                axios({
+                    url: 'http://193.247.203.90:8080/api/devices',
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: {
+                        deviceID: node.id,
+                        deviceEUI: node.name,
+                        description: node.type,
+                    },
+                }).then((response) => {
+                    console.log(response);
                     commit('pushNode', {
-                        ...node,
-                        created: '2018-05-18 04:04:59',
-                        updated: '2019-02-03 06:50:00',
-                        isActive: true,
-                        key: state.nodes.length + 1,
+                        id: node.id,
+                        name: node.name,
+                        type: node.type,
                     });
-                    resolve();
-                }, 1500);
+                }).catch((e) => {
+                    console.log(e);
+                });
             });
         },
         updateNode: ({ commit }, { key, node }) => {
@@ -58,11 +77,19 @@ const store = new Vuex.Store({
             });
         },
         deleteNode: ({ commit }, node) => {
-            return new Promise((resolve) => {
-                setTimeout(() => {
+            return new Promise(() => {
+                axios({
+                    url: `http://193.247.203.90:8080/api/device/${node.id}`,
+                    method: 'delete',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }).then((response) => {
+                    console.log(response);
                     commit('removeNode', node);
-                    resolve();
-                }, 1000);
+                }).catch((e) => {
+                    console.log(e);
+                });
             });
         },
     },
